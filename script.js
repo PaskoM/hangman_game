@@ -19,27 +19,27 @@ const wrongLetters = [];
 
 // Show hidden word
 function displayWord() {
-    wordEl.innerHTML = `
+  wordEl.innerHTML = `
     ${selectedWord
-            .split('')
-            .map(
-                letter => `
+      .split('')
+      .map(
+        letter => `
           <span class="letter">
             ${correctLetters.includes(letter) ? letter : ''}
           </span>
         `
-            )
-            .join('')}
+      )
+      .join('')}
   `;
 
-    const innerWord = wordEl.innerText.replace(/[ \n]/g, '');
+  const innerWord = wordEl.innerText.replace(/[ \n]/g, '');
 
-    if (innerWord === selectedWord) {
-        finalMessage.innerText = 'Congratulations! You won! 😃';
-        popup.style.display = 'flex';
+  if (innerWord === selectedWord) {
+    finalMessage.innerText = 'Congratulations! You won! 😃';
+    popup.style.display = 'flex';
 
-        playable = false;
-    }
+    playable = false;
+  }
 }
 
 // Update the wrong letters
@@ -68,7 +68,8 @@ function updateWrongLettersEl() {
     popup.style.display = 'flex';
 
     playable = false;
-  };
+  }
+}
 
 // Show notification
 function showNotification() {
@@ -78,49 +79,49 @@ function showNotification() {
     notification.classList.remove('show');
   }, 2000);
 }
-  
-  // Keydown letter press
-  window.addEventListener('keydown', e => {
-    if (playable) {
-      if (e.keyCode >= 65 && e.keyCode <= 90) {
-        const letter = e.key.toLowerCase();
 
-        if (selectedWord.includes(letter)) {
-          if (!correctLetters.includes(letter)) {
-            correctLetters.push(letter);
+// Keydown letter press
+window.addEventListener('keydown', e => {
+  if (playable) {
+    if (e.keyCode >= 65 && e.keyCode <= 90) {
+      const letter = e.key.toLowerCase();
 
-            displayWord();
-          } else {
-            showNotification();
-          }
+      if (selectedWord.includes(letter)) {
+        if (!correctLetters.includes(letter)) {
+          correctLetters.push(letter);
+
+          displayWord();
         } else {
-          if (!wrongLetters.includes(letter)) {
-            wrongLetters.push(letter);
+          showNotification();
+        }
+      } else {
+        if (!wrongLetters.includes(letter)) {
+          wrongLetters.push(letter);
 
-            updateWrongLettersEl();
-          } else {
-            showNotification();
-          }
+          updateWrongLettersEl();
+        } else {
+          showNotification();
         }
       }
     }
-  });
+  }
+});
 
-  // Restart game and play again
-  playAgainBtn.addEventListener('click', () => {
-    playable = true;
+// Restart game and play again
+playAgainBtn.addEventListener('click', () => {
+  playable = true;
 
-    //  Empty arrays
-    correctLetters.splice(0);
-    wrongLetters.splice(0);
+  //  Empty arrays
+  correctLetters.splice(0);
+  wrongLetters.splice(0);
 
-    selectedWord = words[Math.floor(Math.random() * words.length)];
-
-    displayWord();
-
-    updateWrongLettersEl();
-
-    popup.style.display = 'none';
-  });
+  selectedWord = words[Math.floor(Math.random() * words.length)];
 
   displayWord();
+
+  updateWrongLettersEl();
+
+  popup.style.display = 'none';
+});
+
+displayWord();
