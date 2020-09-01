@@ -42,7 +42,7 @@ function displayWord() {
   }
 }
 
-// Update the wrong letters
+// Update the wrong letter
 function updateWrongLettersEl() {
   // Display wrong letters
   wrongLettersEl.innerHTML = `
